@@ -27,7 +27,14 @@ namespace MoveOnGrid
 
         public void Update(float deltaTime)
         {
-
+            _walker.Update(deltaTime);
+            if (_walker.Finished)
+            {
+                _gameObjects.Remove(_walker);
+                _world.ResetWorld();
+                _walker = new Walker(_world);
+                _gameObjects.Add(_walker);
+            }
         }
     }
 }

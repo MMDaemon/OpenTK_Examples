@@ -26,6 +26,44 @@ namespace MoveOnGrid
             InitiateWorld();
         }
 
+        public void ResetWorld()
+        {
+            ClearWorld();
+            CreatePath();
+        }
+
+        public IEnumerable<Vector2> GetNeighborPositions(Vector2 pos)
+        {
+            List<Vector2> neighbors = new List<Vector2>();
+            if (pos.X + 1 < Size.X)
+            {
+                neighbors.Add(pos + Vector2.UnitX);
+            }
+            if (pos.X - 1 >= 0)
+            {
+                neighbors.Add(pos - Vector2.UnitX);
+            }
+            if (pos.Y + 1 < Size.Y)
+            {
+                neighbors.Add(pos + Vector2.UnitY);
+            }
+            if (pos.Y - 1 >= 0)
+            {
+                neighbors.Add(pos - Vector2.UnitY);
+            }
+            return neighbors;
+        }
+
+        public bool IsWalkable(Vector2 position)
+        {
+            return _world[(int)position.X, (int)position.Y].Type == 1;
+        }
+
+        public Vector2 GetCenter(Vector2 position)
+        {
+            return _world[(int)position.X, (int)position.Y].Bounds.CenterPosition;
+        }
+
         private void InitiateWorld()
         {
             for (int x = 0; x < Size.X; x++)
@@ -101,28 +139,6 @@ namespace MoveOnGrid
             }
 
             return neighbors.Count > 0 ? neighbors[_rand.Next(0, neighbors.Count)] : -Vector2.One;
-        }
-
-        private IEnumerable<Vector2> GetNeighborPositions(Vector2 pos)
-        {
-            List<Vector2> neighbors = new List<Vector2>();
-            if (pos.X + 1 < Size.X)
-            {
-                neighbors.Add(pos + Vector2.UnitX);
-            }
-            if (pos.X - 1 >= 0)
-            {
-                neighbors.Add(pos - Vector2.UnitX);
-            }
-            if (pos.Y + 1 < Size.Y)
-            {
-                neighbors.Add(pos + Vector2.UnitY);
-            }
-            if (pos.Y - 1 >= 0)
-            {
-                neighbors.Add(pos - Vector2.UnitY);
-            }
-            return neighbors;
         }
 
         private void SetType(Vector2 pos, int type)
