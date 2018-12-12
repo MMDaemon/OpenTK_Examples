@@ -43,7 +43,7 @@ namespace MoveOnGrid
         {
             Matrix4 translation = Matrix4.CreateTranslation(new Vector3(rectangle.Position.X, rectangle.Position.Y, 0f));
             Matrix4 scale = Matrix4.CreateScale(new Vector3(rectangle.Size.X, rectangle.Size.Y, 1));
-            Matrix4 transformation = translation * scale * cameraTransformation;
+            Matrix4 transformation = scale * translation * cameraTransformation;
             GL.LoadMatrix(ref transformation);
 
             //draw a quad

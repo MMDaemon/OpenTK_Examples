@@ -12,10 +12,5 @@ namespace MoveOnGrid
             Type = type;
             Bounds = new Rectangle(position, size);
         }
-
-        public void Update(float deltaTime)
-        {
-
-        }
     }
 }
